@@ -1,0 +1,28 @@
+name-template: "$NEXT_MINOR_VERSION :rainbow:"
+tag-template: "$NEXT_MINOR_VERSION"
+categories:
+  - title: ":rocket: Features"
+    label: "kind/feature"
+  - title: ":bug: Bug Fixes"
+    label: "kind/fix"
+  - title: ":books: Docs"
+    label: "kind/documentation"
+  - title: ":wrench: Maintenance"
+    label: "kind/refactor"
+  - title: ":page_facing_up: Tests"
+    labels:
+      - "kind/test"
+      - "kind/ci"
+  - title: ":chart_with_upwards_trend: Improvements"
+    labels:
+      - "kind/build"
+      - "kind/performance"
+      - "kind/chore"
+  - title: ":boom: BREAKING CHANGES"
+    label: "kind/breaking-change"
+
+change-template: "- $TITLE @$AUTHOR (#$NUMBER)"
+template: |
+  ## What's Changed
+
+  $CHANGES

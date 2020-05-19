@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "govtext-template"
+version = "0.1.0"
+description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+authors = [
+  "Charlton Lim <charlton@dsaid.gov.sg>"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+bandit = "^1.6.2"
+black = "^19.10b0"
+factory_boy = "^2.12.0"
+flake8 = "^3.7.9"
+isort = "^4.3.21"
+mypy = "^0.761"
+pre-commit = "^2.1.0"
+pytest = "^5.3.5"
+pytest-dotenv = "^0.4.0"
+pytest-mock = "^2.0.0"
+sqlalchemy-stubs = "^0.3"
+
+[tool.isort]
+line_length = 88
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+atomic = true
+skip_glob = ["*/setup.py"]
+known_first_party = [
+  "govtext_template",
+]
+known_third_party = [
+  "pytest",
+  "pytest_mock",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py37"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+
+)/
+'''
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

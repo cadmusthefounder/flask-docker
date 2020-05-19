@@ -1,0 +1,9 @@
+kind/feature: feat--*
+kind/fix: fix--*
+kind/documentation: docs--*
+kind/ci: ci--*
+kind/chore: chore--*
+kind/build: build--*
+kind/performance: perf--*
+kind/refactor: refactor--*
+kind/test: test--*

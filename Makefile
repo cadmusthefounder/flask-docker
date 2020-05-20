@@ -39,6 +39,80 @@ help:
 		}' \
 		$(MAKEFILE_LIST)
 
+## -- Deployment --
+
+## Only builds image when ${DEVELOPMENT_ENVIRONMENT} is DEVELOPMENT.
+##
+.PHONY: build
+build:
+	@scripts/build.sh
+
+## Deploy based on ${DEVELOPMENT_ENVIRONMENT} variable set in .env file.
+##
+## DEVELOPMENT:
+##     1) Build govtext_auth's images.
+##     2) Create a docker network if it doesn't exist.
+##     3) Start containers in data tier.
+##     4) Start containers in app tier with hot reloading.
+##
+.PHONY: up
+up: build
+	-@scripts/create-network.sh
+	@scripts/up.sh -t all
+
+## Deploy based on ${DEVELOPMENT_ENVIRONMENT} variable set in .env file.
+##
+## DEVELOPMENT:
+##     1) Create a docker network if it doesn't exist.
+##     2) Start containers in data tier.
+##
+.PHONY: up-data
+up-data:
+	-@scripts/create-network.sh
+	@scripts/up.sh -t data
+
+## Deploy based on ${DEVELOPMENT_ENVIRONMENT} variable set in .env file.
+##
+## DEVELOPMENT:
+##     1) Build govtext_auth's images.
+##     2) Start containers in app tier with hot reloading.
+##
+.PHONY: up-app
+up-app: build
+	@scripts/up.sh -t app
+
+## Deploy based on ${DEVELOPMENT_ENVIRONMENT} variable set in .env file.
+##
+## DEVELOPMENT:
+##     1) Stops all running containers in app tier.
+##     2) Stops all running containers in db tier.
+##     3) Destroy the docker network.
+##
+.PHONY: down
+down:
+	@scripts/down.sh -t all
+	-@scripts/destroy-network.sh
+
+## Deploy based on ${DEVELOPMENT_ENVIRONMENT} variable set in .env file.
+##
+## DEVELOPMENT:
+##     1) Stops all running containers in db tier.
+##     2) Destroy the docker network.
+##
+.PHONY: down-data
+down-data:
+	@scripts/down.sh -t data
+	-@scripts/destroy-network.sh
+
+## Deploy based on ${DEVELOPMENT_ENVIRONMENT} variable set in .env file.
+##
+## DEVELOPMENT:
+##     1) Stops all running containers in app tier.
+##
+.PHONY: down-app
+down-app:
+	@scripts/down.sh -t app
+
 ## -- Utility --
 
 ## Recreate a fresh .env from sample.env

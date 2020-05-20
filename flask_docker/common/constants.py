@@ -5,3 +5,4 @@ class Environment(Enum):
     DEVELOPMENT = "DEVELOPMENT"
     STAGING = "STAGING"
     PRODUCTION = "PRODUCTION"
+    TESTING = "TESTING"

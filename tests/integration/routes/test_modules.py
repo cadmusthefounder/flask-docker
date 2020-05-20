@@ -13,6 +13,16 @@ def test_get_module_failure(client):
     assert response.status == "404 NOT FOUND"
 
 
+def test_get_module_success(client, relational_db):
+    data = {"code": "cs1020", "size": 800}
+    module = relational_db.insert_module(data)
+    response = client.get("/modules/{}".format(str(module.id)))
+
+    assert response.json["module"]["code"] == data["code"]
+    assert response.json["module"]["size"] == data["size"]
+    assert response.status == "200 OK"
+
+
 def test_post_module_success(client):
     data = {"module": {"code": "cs1010", "size": 1000}}
     response = client.post("/modules/", json=data)

@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+
+  server:
+    image: ${SERVER_NAME}:${VERSION}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SERVER_PORT=${SERVER_PORT}
+        - WORKDIR_PATH=${WORKDIR_PATH}
+        - VENV_PATH=${VENV_PATH}
+    container_name: ${SERVER_NAME}
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    env_file:
+      - .env
+    volumes:
+      - ./flask_docker:${WORKDIR_PATH}/flask_docker
+      - ./tests:${WORKDIR_PATH}/tests
+    command: ["./wait-for-it.sh", "${RELATIONAL_DB_NAME}:${RELATIONAL_DB_PORT}", "--",
+              "./start.sh"]
+    networks:
+      - flask_docker_network
+
+networks:
+  flask_docker_network:
+    external:
+      name: ${DOCKER_NETWORK}

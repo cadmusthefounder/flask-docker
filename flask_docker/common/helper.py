@@ -12,3 +12,7 @@ def get_current_utc_time() -> datetime:
 
 def is_development() -> bool:
     return Environment(os.environ["ENVIRONMENT"]) is Environment.DEVELOPMENT
+
+
+def is_testing() -> bool:
+    return Environment(os.environ["ENVIRONMENT"]) is Environment.TESTING

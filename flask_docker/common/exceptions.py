@@ -35,5 +35,9 @@ class RelationalDBError(MessageException):
 ########################
 
 
+class InvalidRequestError(MessageException):
+    pass
+
+
 class ValueError(MessageException):
     pass
